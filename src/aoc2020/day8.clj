@@ -23,4 +23,4 @@
 
 (def part1 (execute-instrs input false))
 
-(def part2 (or (attempt-terminate "nop" "jump") (attempt-terminate "jmp" "nop")))
+(def part2 (or (attempt-terminate "nop" "jmp") (attempt-terminate "jmp" "nop")))
