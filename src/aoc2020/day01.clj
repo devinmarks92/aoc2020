@@ -1,4 +1,4 @@
-(ns aoc2020.day1
+(ns aoc2020.day01
   (:require [clojure.string :as s]))
 
 (def input (map read-string (s/split-lines (slurp "resources/input/day1"))))

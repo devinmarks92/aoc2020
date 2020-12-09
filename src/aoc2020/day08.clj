@@ -1,4 +1,4 @@
-(ns aoc2020.day8
+(ns aoc2020.day08
   (:require [clojure.string :as s]))
 
 (def input (mapv #(update (s/split % #" ") 1 read-string)

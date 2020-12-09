@@ -1,4 +1,4 @@
-(ns aoc2020.day7
+(ns aoc2020.day07
   (:require [clojure.string :as s]))
 
 (defn format-input-line
@@ -9,7 +9,7 @@
                  {}
                  (re-seq #"(\d+) (.+?) bags?[,.]" line))))
 
-(def input (->> (slurp "resources/test/day7")
+(def input (->> (slurp "resources/input/day7")
                 s/split-lines
                 (reduce format-input-line {})))
 

@@ -1,4 +1,4 @@
-(ns aoc2020.day4
+(ns aoc2020.day04
   (:require [clojure.string :as s]))
 
 (defn format-input
