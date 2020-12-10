@@ -8,7 +8,7 @@
       (update 1 read-string)
       (update 2 first)))
 
-(def input (map format-input (s/split-lines (slurp "resources/input/day2"))))
+(def input (map format-input (s/split-lines (slurp "resources/input/day02"))))
 
 (defn valid-freq-password?
   [[min max c password]]

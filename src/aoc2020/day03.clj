@@ -1,7 +1,7 @@
 (ns aoc2020.day03
   (:require [clojure.string :as s]))
 
-(def input (mapv vec (s/split-lines (slurp "resources/input/day3"))))
+(def input (mapv vec (s/split-lines (slurp "resources/input/day03"))))
 
 (defn trees-encountered
   [x y]

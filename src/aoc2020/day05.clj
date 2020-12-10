@@ -1,7 +1,7 @@
-(ns aoc2020.day5
+(ns aoc2020.day05
   (:require [clojure.string :as s]))
 
-(def input (->> (s/split-lines (slurp "resources/input/day5"))
+(def input (->> (s/split-lines (slurp "resources/input/day05"))
                 (map #(-> % (s/replace #"[BR]" "1") (s/replace #"[FL]" "0")))
                 (map #(Integer/parseInt % 2))
                 sort))

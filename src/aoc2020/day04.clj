@@ -5,7 +5,7 @@
   [line]
   (into {} (map #(s/split % #":") (s/split line #"[ \n]"))))
 
-(def input (map format-input (s/split (slurp "resources/input/day4") #"\n\n")))
+(def input (map format-input (s/split (slurp "resources/input/day04") #"\n\n")))
 
 (defn required-fields?
   [passport]

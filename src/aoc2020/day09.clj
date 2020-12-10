@@ -1,7 +1,7 @@
 (ns aoc2020.day09
   (:require [clojure.string :as s]))
 
-(def input (mapv read-string (s/split-lines (slurp "resources/input/day9"))))
+(def input (mapv read-string (s/split-lines (slurp "resources/input/day09"))))
 
 (defn two-sum
   [v n]

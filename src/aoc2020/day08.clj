@@ -2,7 +2,7 @@
   (:require [clojure.string :as s]))
 
 (def input (mapv #(update (s/split % #" ") 1 read-string)
-                 (s/split-lines (slurp "resources/input/day8"))))
+                 (s/split-lines (slurp "resources/input/day08"))))
 
 (defn execute-instrs
   [input terminate?]

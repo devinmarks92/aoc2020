@@ -9,7 +9,7 @@
                  {}
                  (re-seq #"(\d+) (.+?) bags?[,.]" line))))
 
-(def input (->> (slurp "resources/input/day7")
+(def input (->> (slurp "resources/input/day07")
                 s/split-lines
                 (reduce format-input-line {})))
 
