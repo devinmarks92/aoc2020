@@ -14,13 +14,11 @@
             (= instr "jmp") (recur acc (+ i arg) (conj idxs i))
             (= instr "acc") (recur (+ acc arg) (inc i) (conj idxs i))))))
 
-(defn attempt-terminate
-  [instr r]
-  (->> (range (count input))
-       (filter #(= instr (get-in input [% 0])))
-       (map #(assoc input % [r (get-in input [% 1])]))
-       (some #(execute-instrs % true))))
-
 (def part1 (execute-instrs input false))
 
-(def part2 (or (attempt-terminate "nop" "jmp") (attempt-terminate "jmp" "nop")))
+(def part2
+  (let [r {"nop" "jmp", "jmp" "nop"}]
+    (->> (range (count input))
+         (filter #((set (keys r)) (get-in input [% 0])))
+         (map #(update input % (fn [[instr v]] [(r instr) v])))
+         (some #(execute-instrs % true)))))
