@@ -11,31 +11,30 @@
 
 (defn visible-neighbor
   [v coord direction]
-  (->> (drop 1 (iterate (partial map + direction) coord))
-       (map #(get-in v %))
-       (filter #(not= \. %))
-       first))
+  (loop [next-coord (map + direction coord)]
+    (let [c (get-in v next-coord)]
+      (if (= \. c) (recur (map + direction next-coord)) c))))
 
 (defn visible-neighbors
   [v coord]
   (count (filter #(= \# %) (map #(visible-neighbor v coord %) directions))))
 
 (defn get-next
-  [v coord neighbors neighbors-fn]
+  [v coord n neighbors-fn]
   (case (get-in v coord)
     \. \.
     \L (if (zero? (neighbors-fn v coord)) \# \L)
-    \# (if (<= neighbors (neighbors-fn v coord)) \L \#)))
+    \# (if (<= n (neighbors-fn v coord)) \L \#)))
 
 (defn step
-  [v neighbors neighbors-fn]
+  [v n neighbors-fn]
   (let [coords (for [x (range (count input)) y (range (count (input 0)))] [x y])]
-    (reduce #(assoc-in %1 %2 (get-next v %2 neighbors neighbors-fn)) v coords)))
+    (reduce #(assoc-in %1 %2 (get-next v %2 n neighbors-fn)) v coords)))
 
 (defn stabilize
-  [neighbors neighbors-fn]
+  [n neighbors-fn]
   (loop [v input]
-    (let [v' (step v neighbors neighbors-fn)]
+    (let [v' (step v n neighbors-fn)]
       (if (= v v')
         (count (mapcat #(filter (partial = \#) %) v'))
         (recur v')))))
