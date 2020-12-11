@@ -25,11 +25,11 @@
   (count (filter #(= \# %) (map #(visible-neighbor v coord %) directions))))
 
 (defn get-next
-  [v coord n neighbors-fn]
+  [v coord neighbors neighbors-fn]
   (case (get-in v coord)
     \. \.
     \L (if (zero? (neighbors-fn v coord)) \# \L)
-    \# (if (<= n (neighbors-fn v coord)) \L \#)))
+    \# (if (<= neighbors (neighbors-fn v coord)) \L \#)))
 
 (defn step
   [v neighbors neighbors-fn]
