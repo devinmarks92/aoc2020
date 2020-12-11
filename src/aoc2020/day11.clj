@@ -3,10 +3,6 @@
 
 (def input (mapv vec (s/split-lines (slurp "resources/input/day11"))))
 
-(def m (count input))
-
-(def n (count (first input)))
-
 (def directions [[1 0] [-1 0] [0 1] [0 -1] [1 1] [1 -1] [-1 1] [-1 -1]])
 
 (defn adjacent-neighbors
