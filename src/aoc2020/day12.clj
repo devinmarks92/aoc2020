@@ -1,9 +1,9 @@
 (ns aoc2020.day12
   (:require [clojure.string :as s]))
 
-(def input (->> (s/split-lines (slurp "resources/test/day12"))
+(def input (->> (s/split-lines (slurp "resources/input/day12"))
                 (map #(split-at 1 %))
-                (mapv (fn [[v1 v2]] [(first v1) (read-string (apply str v2))]))))
+                (mapv #(vector (ffirst %) (read-string (apply str (last %)))))))
 
 (def dir-map {\N [0 1] \S [0 -1] \E [1 0] \W [-1 0]})
 
@@ -19,10 +19,8 @@
   (last (take (inc (/ n 90)) (iterate (rotate-map action) dir))))
 
 (defn rotate-waypoint
-  [action [x y] n]
-  (let [n (if (= action \L) n (* n -1)), radians (Math/toRadians n)]
-    [(Math/round (- (* x (Math/cos radians)) (* y (Math/sin radians))))
-     (Math/round (+ (* y (Math/cos radians)) (* x (Math/sin radians))))]))
+  [[x y] n]
+  (case n 90 [y (- x)] 180 [(- x), (- y)] 270 [(- y) x]))
 
 (def part1
   (loop [dir \E loc [0 0] [[action n] & instrs] input]
@@ -38,6 +36,6 @@
     (condp = action
       nil (apply + (map #(Math/abs %) loc))
       \F (recur waypoint (move waypoint loc n) instrs)
-      \L (recur (rotate-waypoint action waypoint n) loc instrs)
-      \R (recur (rotate-waypoint action waypoint n) loc instrs)
+      \L (recur (rotate-waypoint waypoint (- 360 n)) loc instrs)
+      \R (recur (rotate-waypoint waypoint n) loc instrs)
       (recur (move (dir-map action) waypoint n) loc instrs))))
