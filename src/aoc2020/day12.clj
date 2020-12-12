@@ -20,7 +20,7 @@
 
 (def part1
   (loop [dir [1 0] loc [0 0] [[action n] & instrs] input]
-    (condp = action
+    (case action
       nil (apply + (map #(Math/abs %) loc))
       \F (recur dir (move dir loc n) instrs)
       \L (recur (rotate dir (- 360 n)) loc instrs)
@@ -29,7 +29,7 @@
 
 (def part2
   (loop [waypoint [10 1] loc [0 0] [[action n] & instrs] input]
-    (condp = action
+    (case action
       nil (apply + (map #(Math/abs %) loc))
       \F (recur waypoint (move waypoint loc n) instrs)
       \L (recur (rotate waypoint (- 360 n)) loc instrs)
