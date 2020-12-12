@@ -7,9 +7,6 @@
 
 (def dir-map {\N [0 1] \S [0 -1] \E [1 0] \W [-1 0]})
 
-(def rotate-map {\R {\N \E, \E \S, \S \W, \W \N}
-                 \L {\N \W, \W \S, \S \E, \E \N}})
-
 (defn move
   [dir loc n]
   (reduce (partial mapv +) loc (repeat n dir)))
