@@ -15,21 +15,18 @@
   [[x y] n]
   (case n 90 [y (- x)] 180 [(- x), (- y)] 270 [(- y) x]))
 
-(def part1
-  (loop [dir [1 0] loc [0 0] [[action n] & instrs] input]
+(defn execute-instrs
+  [{:keys [dir waypoint]}]
+  (loop [dir dir, loc [0 0], [[action n] & instrs] input]
     (case action
       nil (apply + (map #(Math/abs %) loc))
       \F (recur dir (move dir loc n) instrs)
       \L (recur (rotate dir (- 360 n)) loc instrs)
       \R (recur (rotate dir n) loc instrs)
-      (recur dir (move (dir-map action) loc n) instrs))))
+      (if waypoint
+        (recur (move (dir-map action) dir n) loc instrs)
+        (recur dir (move (dir-map action) loc n) instrs)))))
 
-(def part2
-  (loop [waypoint [10 1] loc [0 0] [[action n] & instrs] input]
-    (case action
-      nil (apply + (map #(Math/abs %) loc))
-      \F (recur waypoint (move waypoint loc n) instrs)
-      \L (recur (rotate waypoint (- 360 n)) loc instrs)
-      \R (recur (rotate waypoint n) loc instrs)
-      (recur (move (dir-map action) waypoint n) loc instrs))))
+(def part1 (execute-instrs {:dir [1 0]}))
 
+(def part2 (execute-instrs {:dir [10 1] :waypoint true}))
