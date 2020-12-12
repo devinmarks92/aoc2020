@@ -1,15 +1,14 @@
 (ns aoc2020.day12
   (:require [clojure.string :as s]))
 
-(def input (->> (s/split-lines (slurp "resources/input/day12"))
+(def input (->> (s/split-lines (slurp "resources/test/day12"))
                 (map #(split-at 1 %))
                 (mapv (fn [[v1 v2]] [(first v1) (read-string (apply str v2))]))))
 
-(def dir-vec [\N \E \S \W])
-
 (def dir-map {\N [0 1] \S [0 -1] \E [1 0] \W [-1 0]})
 
-(def rotate-map {\N 0 \E 1 \S 2 \W 3 \L -1 \R 1})
+(def rotate-map {\R {\N \E, \E \S, \S \W, \W \N}
+                 \L {\N \W, \W \S, \S \E, \E \N}})
 
 (defn move
   [dir loc n]
@@ -17,7 +16,7 @@
 
 (defn rotate
   [action dir n]
-  (dir-vec (mod (+ (rotate-map dir) (* (rotate-map action) (/ n 90))) 4)))
+  (last (take (inc (/ n 90)) (iterate (rotate-map action) dir))))
 
 (defn rotate-waypoint
   [action [x y] n]
